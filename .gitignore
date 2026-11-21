@@ -1,0 +1,10 @@
+.venv/
+cache.json
+out/
+__pycache__/
+TripReportApp/build/
+trips/
+cache.backup.json
+.DS_Store
+xcuserdata/
+*.xcuserstate
