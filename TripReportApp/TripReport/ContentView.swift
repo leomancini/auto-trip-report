@@ -55,7 +55,7 @@ struct ContentView: View {
                 ContentUnavailableView {
                     Label("No Project Selected", systemImage: "map")
                 } description: {
-                    Text("Choose a folder of trip photos, or drop one here, to build a guide from the best shots.")
+                    Text("Choose a folder of trip photos, or drop one here, to build a report from the best shots.")
                 } actions: {
                     Button("New Project…") { newProject(library) }
                         .prominentActionStyle()
@@ -65,6 +65,7 @@ struct ContentView: View {
         }
         // translucent window: the desktop shows through, blurred
         .containerBackground(.ultraThinMaterial, for: .window)
+        .toolbarBackgroundVisibility(.hidden, for: .windowToolbar)
         .dropDestination(for: URL.self) { urls, _ in
             guard let id = library.createProject(from: urls) else { return false }
             library.analyze(id)
@@ -85,7 +86,7 @@ struct ContentView: View {
                 if let deleting { library.delete(deleting) }
             }
         } message: {
-            Text("The saved guide is removed. Your original photos are not touched.")
+            Text("The saved report is removed. Your original photos are not touched.")
         }
     }
 }

@@ -170,7 +170,7 @@ enum Pipeline {
             }
             while await group.next() != nil {
                 made += 1
-                progress(Update(phase: "Building the guide", done: made, total: guide.count))
+                progress(Update(phase: "Building the report", done: made, total: guide.count))
                 if Task.isCancelled { continue }
                 if let p = iterator.next() { group.addTask(operation: job(p)) }
             }

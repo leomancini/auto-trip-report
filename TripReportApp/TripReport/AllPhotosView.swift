@@ -8,7 +8,7 @@ struct AllPhotosView: View {
 
     enum Filter: String, CaseIterable, Identifiable {
         case all = "All"
-        case inGuide = "In Guide"
+        case inGuide = "In Report"
         case leftOut = "Left Out"
         var id: Self { self }
     }

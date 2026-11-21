@@ -35,7 +35,7 @@ struct GuideView: View {
         let photos = project.guidePhotos
         if photos.isEmpty {
             ContentUnavailableView(
-                "No Photos Made the Guide", systemImage: "photo.on.rectangle.angled",
+                "No Photos Made the Report", systemImage: "photo.on.rectangle.angled",
                 description: Text("Lower the minimum score in Settings and analyze again, or add photos from Photos."))
         } else {
             let summary = GuideSummary(photos: photos)

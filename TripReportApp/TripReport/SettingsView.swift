@@ -37,7 +37,7 @@ struct SettingsView: View {
             Section {
                 Stepper("Minimum score: \(minScore)", value: $minScore, in: 1...10)
             } footer: {
-                Text("Photos scoring below this are left out of guides. Applies the next time you analyze.")
+                Text("Photos scoring below this are left out of reports. Applies the next time you analyze.")
             }
 
             Section {

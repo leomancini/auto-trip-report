@@ -6,7 +6,7 @@ struct ProjectDetailView: View {
     let projectID: UUID
 
     enum Tab: String, CaseIterable, Identifiable {
-        case guide = "Guide"
+        case guide = "Report"
         case all = "Photos"
         var id: Self { self }
     }
@@ -24,7 +24,7 @@ struct ProjectDetailView: View {
                     ContentUnavailableView {
                         Label("Ready to Analyze", systemImage: "sparkles")
                     } description: {
-                        Text("Every photo is scored on this Mac by \(Prefs.model) through Ollama. The best shots become your guide.")
+                        Text("Every photo is scored on this Mac by \(Prefs.model) through Ollama. The best shots become your report.")
                     } actions: {
                         Button("Analyze Photos") { library.analyze(projectID) }
                             .prominentActionStyle()
@@ -40,6 +40,9 @@ struct ProjectDetailView: View {
             .navigationTitle(project.name)
             // the name still labels the window, but isn't drawn in the toolbar
             .toolbar(removing: .title)
+            // no solid strip behind the toolbar; content blurs out as it slides under instead
+            .toolbarBackgroundVisibility(.hidden, for: .windowToolbar)
+            .toolbarEdgeBlur()
             .quickLookPreview($preview)
             .toolbar {
                 if project.analyzedAt != nil && job == nil {
@@ -65,12 +68,6 @@ struct ProjectDetailView: View {
                     }
                     .help("Re-run the analysis. Photos already scored are reused.")
                     .disabled(job != nil)
-
-                    Button { exportPicks(library, projectID) } label: {
-                        Label("Export Picks", systemImage: "square.and.arrow.up")
-                    }
-                    .help("Copy the guide's original photos into a folder")
-                    .disabled(job != nil || project.analyzedAt == nil)
                 }
             }
             .alert("Something went wrong", isPresented: Binding(
@@ -164,14 +161,14 @@ struct PhotoMenu: View {
                     library.setShot(.primary, for: photo.id, in: projectID)
                 }
             }
-            Button("Remove from Guide", systemImage: "eye.slash") {
+            Button("Remove from Report", systemImage: "eye.slash") {
                 library.removeFromGuide(photo.id, in: projectID)
             }
         } else {
             if let reason = photo.whyLeftOut {
                 Text("Left out: \(reason)")
             }
-            Button("Add to Guide", systemImage: "plus.circle") {
+            Button("Add to Report", systemImage: "plus.circle") {
                 library.addToGuide(photo.id, in: projectID)
             }
             .disabled(photo.datetime == nil)

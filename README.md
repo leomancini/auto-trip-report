@@ -49,7 +49,7 @@ python3 -m venv .venv
 
 `TripReportApp/` is a native SwiftUI version of both scripts (no Python needed;
 it still uses Ollama for the vision model). Projects — a set of photos plus the
-guide generated from them — are saved automatically under
+report generated from them — are saved automatically under
 `~/Library/Application Support/TripReport/`.
 
 ```bash

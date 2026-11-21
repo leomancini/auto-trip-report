@@ -50,6 +50,29 @@ extension View {
         }
     }
 
+    /// Liquid Glass-style scroll edge: content sliding under the toolbar melts into a
+    /// blur that is strongest at the window's top edge and gone just below the buttons.
+    func toolbarEdgeBlur(height: CGFloat = 100) -> some View {
+        overlay {
+            VStack(spacing: 0) {
+                Rectangle()
+                    .fill(.ultraThinMaterial)
+                    .mask(LinearGradient(
+                        // eased, not linear: no visible line where the blur ends
+                        stops: [.init(color: .black, location: 0),
+                                .init(color: .black.opacity(0.85), location: 0.25),
+                                .init(color: .black.opacity(0.5), location: 0.5),
+                                .init(color: .black.opacity(0.18), location: 0.75),
+                                .init(color: .clear, location: 1)],
+                        startPoint: .top, endPoint: .bottom))
+                    .frame(height: height)
+                Spacer(minLength: 0)
+            }
+            .ignoresSafeArea(edges: .top)
+            .allowsHitTesting(false)
+        }
+    }
+
     @ViewBuilder
     func prominentActionStyle() -> some View {
         if #available(macOS 26.0, *) {
